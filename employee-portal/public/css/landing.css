@@ -32,17 +32,13 @@ body.is-landing .site-main {
 .municipal-landing::before {
   content: '';
   position: absolute;
-  inset: -12px;
+  inset: 0;
   z-index: -1;
 
-  background:
-    linear-gradient(
-      180deg,
-      rgba(10, 18, 48, 0.12),
-      rgba(10, 18, 48, 0.20)
-    ),
-    url('/assets/drt-municipal-hall-background.jpg')
-      center / cover no-repeat;
+  background-image: url('/assets/drt-municipal-hall-background.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 
   filter: none;
 }
