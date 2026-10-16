@@ -265,14 +265,51 @@ body.is-landing .site-main {
 }
 
 
-.municipal-pin-error {
-  min-height: 1.1em;
-  margin: -4px 0 0;
 
-  color: #991B1B;
-  font-size: 0.85rem;
-  font-weight: 700;
+/* PIN VALIDATION ERROR
+   Makes incorrect PIN messages easier to read over the transparent card. */
+
+.municipal-pin-error {
+  display: none;
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 800;
+  line-height: 1.5;
+  color: #8B1538;
 }
+
+/* Show a readable error message only when validation fails. */
+.municipal-pin-error:not(:empty) {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 11px 14px;
+
+  background: rgba(255, 240, 244, 0.94);
+  border-radius: 9px;
+
+  box-shadow: 0 3px 12px rgba(10, 18, 48, 0.08);
+}
+
+/* Display a warning icon beside the error message. */
+.municipal-pin-error:not(:empty)::before {
+  content: "!";
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+
+  width: 21px;
+  height: 21px;
+
+  border-radius: 50%;
+  background: #B4233A;
+  color: #FFFFFF;
+
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
 
 .municipal-continue {
   display: flex;
