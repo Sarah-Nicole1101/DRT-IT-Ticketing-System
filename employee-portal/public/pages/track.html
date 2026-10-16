@@ -1,0 +1,114 @@
+<div class="container tracking-container">
+
+      <!-- Display the page heading and return button. -->
+      <div class="tracking-header">
+        <div>
+          <div class="eyebrow">Ticket History</div>
+          <h1>Track Ticket</h1>
+          <p>Search for one ticket using its ID, or choose a municipal office to view all reported concerns.</p>
+        </div>
+        <a href="/" data-link class="button secondary">← Submit Ticket</a>
+      </div>
+
+      <!-- Search by exact ticket ID or selected municipal office. -->
+      <form id="track-form" class="panel tracking-search" novalidate>
+        <div class="tracking-field">
+          <label for="track-id">Search by Ticket ID (optional)</label>
+          <input id="track-id" name="reference" type="search" value="{{ticketId}}"
+            autocomplete="off" placeholder="e.g., TKT-2026-10-001" />
+        </div>
+
+        <!-- Separate the two available search methods. -->
+        <div class="tracking-separator" aria-hidden="true">OR</div>
+
+        <div class="tracking-field tracking-office">
+          <label for="track-office">Choose or Search Your Municipal Office</label>
+          <select id="track-office" name="office">{{officeOptions}}</select>
+        </div>
+
+        <!-- Submit the search without leaving the page. -->
+        <button type="submit" class="button primary tracking-search-button">Search Tickets</button>
+
+        <p class="tracking-help"> Enter a Ticket ID to find a specific ticket. Alternatively, leave the Ticket ID field blank and select a municipal office to view all tickets submitted under that office.</p>
+        <p id="track-error" class="field-error" role="alert"></p>
+      </form>
+
+      <!-- Show search results below the form. -->
+      <section id="results-section" aria-label="Ticket search results" hidden>
+        <div class="tracking-results-header">
+          <div>
+            <div class="eyebrow">Search Results</div>
+            <h2 id="result-title">Tickets</h2>
+            <p id="result-count" class="caption"></p>
+          </div>
+
+          <!-- Allow sorting tickets by submission date. -->
+          <div class="tracking-sort">
+            <label for="sort-filter">Sort by</label>
+            <select id="sort-filter">
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Display matching tickets in a table. -->
+        <div class="ticket-table-wrap">
+          <table class="ticket-table">
+            <thead><tr><th>Ticket ID</th><th>Office</th><th>Status</th><th>Time Submitted</th></tr></thead>
+
+            <!-- JavaScript inserts ticket rows here. -->
+            <tbody id="ticket-rows"></tbody>
+          </table>
+
+          <!-- Display an empty or loading message when needed. -->
+          <div id="tracking-empty"></div>
+        </div>
+
+        <p class="tracking-help tracking-table-help">Select a ticket row to view its progress and IT notes.</p>
+      </section>
+    </div>
+
+    <!-- Reusable row and dialog structures; populated safely by JavaScript. -->
+    <template id="ticket-row-template">
+<tr>
+          <td colspan="4" class="ticket-cell">
+            <button class="ticket-row-button" type="button" data-ticket-index=""
+              aria-label="View progress for ticket">
+              <span class="ticket-reference" data-reference></span>
+              <span class="ticket-office" data-office></span>
+              <span class="ticket-status" data-status></span>
+              <span class="ticket-date" data-date></span>
+            </button>
+          </td>
+        </tr>
+    </template>
+    <template id="ticket-detail-template">
+<div class="dialog-body ticket-detail-dialog">
+        <div class="dialog-top">
+          <h2 id="dialog-title">Ticket Progress</h2>
+          <button class="close-button" data-close-dialog type="button" aria-label="Close ticket progress">×</button>
+        </div>
+
+        <!-- Show the ticket reference, office, dates, and status. -->
+        <div class="ticket-detail-meta">
+          <div><span>Ticket ID</span><strong class="ticket-reference" data-detail-reference></strong></div>
+          <div><span>Municipal Office</span><strong data-detail-office></strong></div>
+          <div><span>Time Submitted</span><strong data-detail-date></strong></div>
+          <div><span>Current Status</span><span data-detail-status></span></div>
+          <div data-resolution-row hidden><span>Resolution Time</span><strong data-resolution-time></strong></div>
+        </div>
+
+        <!-- Show the concern submitted by the employee. -->
+        <section class="ticket-detail-note">
+          <h3>End User's Description</h3>
+          <p data-detail-description></p>
+        </section>
+
+        <!-- Show an IT note when one is available. -->
+        <section class="ticket-detail-note">
+          <h3>IT Note / Description</h3>
+          <p data-detail-note></p>
+        </section>
+      </div>
+    </template>

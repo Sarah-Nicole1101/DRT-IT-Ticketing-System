@@ -1,0 +1,81 @@
+<div class="container narrow">
+      <section class="panel submission-result">
+
+        <!-- Display the submission success message. -->
+        <div class="eyebrow">Submission Complete</div>
+        <div class="submission-check" aria-hidden="true">✓</div>
+
+        <h1>Your IT concern has been submitted</h1>
+
+        <p class="muted">
+          Your ticket is now under the selected department and has a Pending status.
+        </p>
+
+        <!-- Display the ticket ID and copy button. -->
+        <div class="reference-box">
+          <span>Your Ticket ID</span>
+
+          <div class="ticket-id-actions">
+            <strong id="ticket-reference">{{reference}}</strong>
+
+            <!-- Copy the ticket ID to the clipboard. -->
+            <button
+              type="button"
+              id="copy-ticket-id"
+              class="copy-ticket-button"
+              aria-label="Copy Ticket ID"
+            >
+              Copy ID
+            </button>
+          </div>
+
+          <!-- Remind the employee to keep their ticket ID. -->
+          <p>
+            Remember this Ticket ID or copy it to track your reported issue.
+          </p>
+
+          <!-- Announce whether copying was successful. -->
+          <p id="copy-feedback" role="status" aria-live="polite"></p>
+        </div>
+
+        <!-- Display the submitted ticket information. -->
+        <div class="result-meta">
+
+          <!-- Employee's full name. -->
+          <div>
+            <span class="muted">Submitted by</span>
+            <strong>{{fullName}}</strong>
+          </div>
+
+          <!-- Selected municipal office. -->
+          <div>
+            <span class="muted">Office</span>
+            <strong>{{officeCode}} — {{officeName}}</strong>
+          </div>
+
+          <!-- Submission date and time. -->
+          <div>
+            <span class="muted">Date and time</span>
+            <strong>{{submittedAt}}</strong>
+          </div>
+
+          <!-- Initial ticket status. -->
+          <div>
+            <span class="muted">Status</span>
+            {{statusBadge}}
+          </div>
+        </div>
+
+        <!-- Buttons for tracking or submitting another ticket. -->
+        <div class="result-buttons">
+          <a href="/track?office={{officeQuery}}" data-link class="button primary">
+            Track Ticket →
+          </a>
+
+          <a href="/" data-link class="button secondary">
+            Submit Another
+          </a>
+        </div>
+
+      </section>
+    </div>

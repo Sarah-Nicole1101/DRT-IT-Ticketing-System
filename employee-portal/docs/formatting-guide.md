@@ -1,33 +1,32 @@
-# Code Formatting & Debugging Guide
+# Code formatting and debugging guide
 
-## Readable CSS
+## Organizing edits
 
-The four source CSS files under `public/css/` are formatted for maintainability. Every selector has its own block, each declaration uses a new line, and mobile rules are grouped in media queries. The underlying styles have **not** been changed.
+Each Employee Portal page has one HTML template under `public/pages/`, one controller under `public/js/pages/`, and, where necessary, one CSS stylesheet under `public/css/`. Shared site-wide CSS goes in `base.css`; do not put unrelated page rules there.
 
-## Enable automatic formatting in Visual Studio Code
+CSS comments are grouped by component or section (rather than commenting every line), matching the preferred maintenance style. See [MAINTENANCE.md](MAINTENANCE.md) for the exact file to change for each feature.
 
-1. Open the extracted project **folder** using `File > Open Folder` (so `.vscode/settings.json` is applied).
-2. Open the Extensions sidebar (`Ctrl+Shift+X`) and install **Prettier – Code formatter** by Prettier.
-3. Open any CSS/JS/HTML file and press `Shift+Alt+F` to format manually.
-4. Use `Ctrl+S` to save. Workspace settings enable **Format On Save**.
+## Formatting in VS Code
 
-**Note:** The Prettier extension is a VS Code extension, not a Node dependency. The website works without the extension; it only helps you keep source files readable.
+1. Open the extracted **repository root** folder in VS Code.
+2. Install **Prettier – Code formatter** if not installed.
+3. Format a file using `Shift+Alt+F` and save it.
+4. Run `npm --prefix employee-portal test` from the repository root.
 
-## Where to find a style
+Prettier is an editor extension and is not needed at runtime.
 
-- `public/css/base.css`: global colors, typography, header, navigation, footer, buttons, panels, responsive shared layout.
-- `public/css/home.css`: homepage hero and feature cards.
-- `public/css/submit.css`: concern submission form, photo preview, and confirmation page.
-- `public/css/track.css`: office search, result filters, status cards, and tracking view.
-- `public/css/styles.css`: central stylesheet imports; edit the specific page file rather than adding all rules here.
+## Debugging a page
 
-## When the design breaks
+1. For page text, form structure, or icons, open `public/pages/<page>.html`.
+2. For user interactions, open `public/js/pages/<page>.js`.
+3. For layout, open `public/css/<page>.css`; check the mobile media query as well.
+4. For navigation/loading issues, check `public/js/app.js` and `public/js/lib/template-loader.js`.
+5. Use Chrome DevTools Console for JavaScript errors, and the Network tab for missing `/pages/*.html` or asset requests.
+6. Change one component at a time, run tests, and then verify behavior at `http://localhost:5173`.
 
-1. Identify the affected page and open its CSS file.
-2. Press `Ctrl+F` and search for the component's CSS class, such as `.action-card`.
-3. Press `F12` in your browser, select **Inspect**, click the broken element and review its **Styles** pane.
-4. Check related `@media` blocks if the issue happens only on small screens.
-5. Change **one rule at a time**, save, and refresh.
-6. Run `npm test` after changing JavaScript logic.
+## Good practices
 
-**Production note:** Code formatting improves readability, but does not replace validation, access control, testing, or code review.
+- Keep stable input IDs and CSS class names unless their dependent controllers and tests are updated together.
+- Never interpolate raw user input into HTML; escape it or assign via `textContent`.
+- Avoid inline event attributes such as `onclick` in templates; attach handlers in the page controller.
+- Do not hardcode real secrets in `public/` assets. The current municipal PIN is demo-only.
