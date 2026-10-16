@@ -1,0 +1,990 @@
+
+/* ============================================================
+   DRT MUNICIPAL IT TICKETING SYSTEM
+   EMPLOYEE PORTAL — SUBMISSION & CONFIRMATION STYLES
+
+   FILE LOCATION:
+   employee-portal/public/css/submit.css
+
+   USED BY:
+   - pages/submit.js
+   - pages/success.js
+
+   PURPOSE:
+   - Styles the ticket submission landing page.
+   - Organizes the required input fields.
+   - Styles the required photo upload section.
+   - Displays form validation errors.
+   - Positions the Submit and Track Ticket buttons.
+   - Styles the submission confirmation page.
+   - Supports responsive layouts for mobile devices.
+
+   IMPORTANT:
+   Shared colors, fonts, and general components are
+   defined in base.css.
+
+   This file should contain only submission-related
+   and confirmation-related styling.
+   ============================================================ */
+
+
+/* ============================================================
+   SECTION 1: LANDING PAGE LAYOUT
+
+   LOCATION:
+   Main Employee Portal landing page.
+
+   PURPOSE:
+   Controls the width, alignment, and spacing of the
+   introductory heading above the ticket submission form.
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   .entry-container
+
+   Main wrapper containing the submission interface.
+
+   max-width:
+   Prevents the form from stretching too widely on desktops.
+
+   padding-top:
+   Creates space between the navigation bar and content.
+   ------------------------------------------------------------ */
+
+.entry-container {
+  max-width: 820px;
+  padding-top: 34px;
+  padding-bottom: 50px;
+}
+
+
+/* ------------------------------------------------------------
+   .entry-intro
+
+   Container for the landing page title and description.
+
+   text-align:
+   Centers the heading and introductory instructions.
+
+   margin:
+   Controls spacing around the introduction.
+   ------------------------------------------------------------ */
+
+.entry-intro {
+  text-align: center;
+  margin: 4px auto 22px;
+}
+
+
+/* ------------------------------------------------------------
+   .entry-intro h1
+
+   Styles the main heading on the submission landing page.
+
+   font-size:
+   Uses clamp() to scale the heading across screen sizes.
+
+   margin:
+   Controls spacing above and below the heading.
+   ------------------------------------------------------------ */
+
+.entry-intro h1 {
+  font-size: clamp(1.75rem, 4vw, 2.55rem);
+  margin: 6px 0 8px;
+}
+
+
+/* ------------------------------------------------------------
+   .entry-intro p
+
+   Styles the instructions below the main heading.
+
+   Uses the shared muted text color from base.css.
+   ------------------------------------------------------------ */
+
+.entry-intro p {
+  color: var(--muted);
+  margin-bottom: 0;
+}
+
+
+/* ============================================================
+   SECTION 2: MAIN SUBMISSION FORM
+
+   LOCATION:
+   Main form containing the required fields:
+
+   1. IT Concern / Issue Description
+   2. Full Name
+   3. Department / Municipal Office
+   4. Photo Attachment
+
+   PURPOSE:
+   Controls the form container, spacing between fields,
+   labels, and required indicators.
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   .entry-panel
+   Main white form panel shown above the blurred background.
+   Makes the form look elevated, clean, and readable.
+   ------------------------------------------------------------ */
+.entry-panel {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-top: 4px solid var(--magenta);
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow:
+    0 18px 45px rgba(10, 18, 48, 0.10),
+    0 4px 14px rgba(10, 18, 48, 0.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* ------------------------------------------------------------
+   .entry-field
+
+   Wrapper for each individual form field.
+
+   margin-bottom:
+   Creates vertical spacing between input fields.
+   ------------------------------------------------------------ */
+
+.entry-field {
+  margin-bottom: 22px;
+}
+
+
+/* ------------------------------------------------------------
+   .entry-field label
+
+   Styles the labels of the required form fields.
+
+   display: flex:
+   Places label text and its required indicator together.
+
+   flex-wrap:
+   Allows the label and required indicator to wrap on
+   smaller screens.
+
+   align-items:
+   Vertically aligns the label and required indicator.
+   ------------------------------------------------------------ */
+
+.entry-field label {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+
+/* ------------------------------------------------------------
+   .entry-field textarea
+
+   Used for the IT concern description input.
+
+   min-height:
+   Provides enough space for employees to describe the issue.
+
+   The textarea can still grow if other styles allow resizing.
+   ------------------------------------------------------------ */
+
+.entry-field textarea {
+  min-height: 135px;
+}
+
+
+/* ------------------------------------------------------------
+   .required-marker
+
+   Displays the REQUIRED badge beside mandatory fields.
+
+   background:
+   Uses a light pink background.
+
+   color:
+   Uses the DRT municipal magenta color.
+
+   border-radius:
+   Creates a pill-shaped indicator.
+   ------------------------------------------------------------ */
+
+.required-marker {
+  display: inline-flex;
+  border-radius: 99px;
+  background: #fde8f4;
+  color: var(--magenta);
+  font-size: .64rem;
+  font-weight: 800;
+  padding: 4px 8px;
+  letter-spacing: .02em;
+}
+
+
+/* ------------------------------------------------------------
+   .entry-field .field-note
+
+   Displays short instructions below input fields.
+
+   Example:
+   "Enter your complete name."
+
+   font-size:
+   Makes helper text smaller than the main form labels.
+
+   color:
+   Uses muted text to establish visual hierarchy.
+   ------------------------------------------------------------ */
+
+.entry-field .field-note {
+  display: block;
+  font-size: .8rem;
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+
+/* ============================================================
+   SECTION 3: REQUIRED PHOTO UPLOAD
+
+   LOCATION:
+   Photo attachment section of the ticket submission form.
+
+   PURPOSE:
+   - Styles the upload container.
+   - Displays selected image previews.
+   - Provides a Remove Photo button.
+   - Keeps the upload interface responsive.
+
+   IMPORTANT:
+   Actual photo validation is handled by JavaScript.
+
+   This CSS only controls visual presentation.
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   .file-box
+
+   Main upload container.
+
+   background:
+   Creates a light background around the upload control.
+
+   border:
+   Adds a dashed outline to distinguish the upload area.
+
+   border-radius:
+   Creates rounded corners.
+   ------------------------------------------------------------ */
+
+.file-box {
+  background: #fbfcff;
+  border: 2px dashed #aabddc;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+
+/* ------------------------------------------------------------
+   .file-box input
+
+   Styles the native file input inside the upload container.
+
+   width:
+   Allows the input to use the available container width.
+
+   border:
+   Removes the default border.
+
+   background:
+   Keeps the input background transparent.
+   ------------------------------------------------------------ */
+
+.file-box input {
+  min-height: auto;
+  width: 100%;
+  border: 0;
+  padding: 4px 0;
+  background: transparent;
+}
+
+
+/* ------------------------------------------------------------
+   .preview-grid
+
+   Container for selected photo previews.
+
+   display: grid:
+   Arranges image previews in a responsive grid.
+
+   grid-template-columns:
+   Automatically adds columns based on available width.
+
+   gap:
+   Controls spacing between image previews.
+   ------------------------------------------------------------ */
+
+.preview-grid {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+  gap: 12px;
+}
+
+
+/* ------------------------------------------------------------
+   .preview
+
+   Individual container for one selected image.
+
+   border:
+   Creates a boundary around the preview.
+
+   overflow: hidden:
+   Prevents the image from extending beyond rounded corners.
+   ------------------------------------------------------------ */
+
+.preview {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: white;
+  overflow: hidden;
+}
+
+
+/* ------------------------------------------------------------
+   .preview img
+
+   Styles the actual preview image.
+
+   width:
+   Makes the image fill its preview container.
+
+   height:
+   Keeps all image previews the same height.
+
+   object-fit: cover:
+   Fills the image area while preserving proportions.
+   Parts of larger images may be cropped.
+   ------------------------------------------------------------ */
+
+.preview img {
+  width: 100%;
+  height: 110px;
+  display: block;
+  object-fit: cover;
+}
+
+
+/* ------------------------------------------------------------
+   .preview button
+
+   Styles the Remove Photo button under each image.
+
+   border-top:
+   Separates the button from the photo.
+
+   min-height:
+   Makes the control easier to tap on mobile devices.
+
+   color:
+   Uses DRT municipal magenta.
+   ------------------------------------------------------------ */
+
+.preview button {
+  border: 0;
+  border-top: 1px solid var(--border);
+  background: white;
+  width: 100%;
+  min-height: 42px;
+  color: var(--magenta);
+  font-weight: 700;
+}
+
+
+/* ============================================================
+   SECTION 4: FORM VALIDATION, BUTTONS & MESSAGES
+
+   LOCATION:
+   Ticket submission form.
+
+   PURPOSE:
+   - Highlights invalid inputs.
+   - Positions the Submit Ticket button.
+   - Displays demonstration notices.
+   - Displays general submission errors.
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   .error-input
+
+   Applied dynamically by JavaScript when a field is invalid.
+
+   Example:
+   Missing full name or missing required photo.
+
+   border-color:
+   Changes the field border to red.
+
+   !important:
+   Overrides general input border styling when an error occurs.
+   ------------------------------------------------------------ */
+
+.error-input {
+  border-color: #b42318 !important;
+}
+
+
+/* ------------------------------------------------------------
+   .form-actions
+
+   Container for the Submit IT Concern button.
+
+   display: flex:
+   Allows flexible alignment of the submit control.
+
+   justify-content: center:
+   Centers the button horizontally.
+   ------------------------------------------------------------ */
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+}
+
+
+/* ------------------------------------------------------------
+   .form-actions .button
+
+   Styles buttons located inside the form-actions container.
+
+   min-width:
+   Prevents the Submit button from becoming too narrow.
+   ------------------------------------------------------------ */
+
+.form-actions .button {
+  min-width: 195px;
+}
+
+
+/* ------------------------------------------------------------
+   .demo-note
+
+   Displays the demonstration notice below the form.
+
+   This informs users that the current frontend stores
+   sample ticket data locally rather than in MySQL.
+
+   IMPORTANT:
+   This notice should be reviewed when the real backend
+   and database are connected.
+   ------------------------------------------------------------ */
+
+.demo-note {
+  margin: 12px 0 18px;
+  font-size: .85rem;
+}
+
+
+/* ------------------------------------------------------------
+   .form-fatal
+
+   Displays general form submission errors.
+
+   Example:
+   "We could not save this demonstration ticket."
+
+   color:
+   Uses red to indicate an error.
+
+   font-weight:
+   Makes the error message easier to notice.
+   ------------------------------------------------------------ */
+
+.form-fatal {
+  margin: 0 0 14px;
+  color: #b42318;
+  font-weight: 800;
+}
+
+
+/* ============================================================
+   SECTION 5: TRACK TICKET BUTTON
+
+   LOCATION:
+   Bottom-right portion of the Employee Portal landing page.
+
+   PURPOSE:
+   Allows employees to navigate from the submission form
+   to the separate Track Ticket page.
+
+   IMPORTANT:
+   This is NOT an IT Admin Portal button.
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   .landing-track-actions
+
+   Wrapper for the Track Ticket button.
+
+   display: flex:
+   Creates a flexible alignment container.
+
+   justify-content: flex-end:
+   Positions the button on the right side.
+
+   padding-top:
+   Adds spacing above the button.
+   ------------------------------------------------------------ */
+
+.landing-track-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+}
+
+
+/* ------------------------------------------------------------
+   .track-entry-button
+
+   Styles the Track Ticket button.
+
+   min-width:
+   Keeps the button large enough for comfortable interaction.
+
+   justify-content:
+   Centers the button text and icons if the button uses flex.
+   ------------------------------------------------------------ */
+
+.track-entry-button {
+  min-width: 160px;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(10, 18, 48, 0.08);
+}
+
+
+/* ============================================================
+   SECTION 6: SUBMISSION CONFIRMATION PAGE
+
+   LOCATION:
+   Displayed after an employee successfully submits a ticket.
+
+   USED BY:
+   pages/success.js
+
+   PURPOSE:
+   - Confirms the ticket was submitted.
+   - Displays the ticket reference.
+   - Displays additional submission information.
+   - Provides navigation to Track Ticket.
+
+   IMPORTANT:
+   Ticket numbers are now part of the updated wireframe
+   for optional exact-ID tracking.
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   .submission-result
+
+   Main container of the submission success page.
+
+   max-width:
+   Keeps the confirmation card at a readable width.
+
+   margin:
+   Centers the card horizontally with vertical spacing.
+
+   text-align:
+   Centers the confirmation text.
+   ------------------------------------------------------------ */
+
+.submission-result {
+  max-width: 640px;
+  margin: 45px auto;
+  padding: 34px;
+  text-align: center;
+}
+
+
+/* ------------------------------------------------------------
+   .submission-check
+
+   Styles the success indicator displayed above the message.
+
+   font-size:
+   Controls the size of the success symbol.
+
+   color:
+   Uses green to represent successful submission.
+   ------------------------------------------------------------ */
+
+.submission-check {
+  font-size: 2rem;
+  color: #16803d;
+  margin-bottom: 8px;
+}
+
+
+/* ------------------------------------------------------------
+   .reference-box
+
+   Displays the ticket reference after submission.
+
+   background:
+   Uses the municipal midnight navy color.
+
+   padding:
+   Creates spacing around the ticket reference.
+
+   color:
+   Sets text to white for readability.
+   ------------------------------------------------------------ */
+
+.reference-box {
+  margin: 22px 0;
+  border-radius: 12px;
+  background: var(--midnight);
+  padding: 20px;
+  color: white;
+}
+
+
+/* ------------------------------------------------------------
+   .reference-box span,
+   .reference-box strong
+
+   Makes the ticket reference label and number
+   appear on separate lines.
+   ------------------------------------------------------------ */
+
+.reference-box span,
+.reference-box strong {
+  display: block;
+}
+
+
+/* ------------------------------------------------------------
+   .reference-box span
+
+   Styles the small heading above the ticket reference.
+
+   Example:
+   "YOUR TICKET REFERENCE"
+
+   text-transform:
+   Displays text in uppercase.
+
+   letter-spacing:
+   Adds spacing between letters for readability.
+   ------------------------------------------------------------ */
+
+.reference-box span {
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  color: #ccd8f9;
+}
+
+
+/* ------------------------------------------------------------
+   .reference-box strong
+
+   Styles the generated ticket reference.
+
+   font-family:
+   Uses SFMono-Regular for ticket identifiers.
+
+   font-size:
+   Automatically adjusts the reference size.
+
+   overflow-wrap:
+   Prevents long references from overflowing on mobile.
+   ------------------------------------------------------------ */
+
+.reference-box strong {
+  font-family: "SFMono-Regular", ui-monospace, monospace;
+  font-size: clamp(.86rem, 3.5vw, 1.4rem);
+  overflow-wrap: anywhere;
+  margin: 10px 0;
+}
+
+
+/* ------------------------------------------------------------
+   .reference-box p
+
+   Styles supporting text inside the reference container.
+
+   Example:
+   Instructions explaining how to track the ticket.
+   ------------------------------------------------------------ */
+
+.reference-box p {
+  color: #e4eaff;
+  margin-bottom: 0;
+  font-size: .82rem;
+}
+
+
+/* ------------------------------------------------------------
+   .result-meta
+
+   Container showing additional submission information.
+
+   Examples:
+   - Employee name
+   - Municipal office
+   - Submission date
+   - Current ticket status
+
+   display: grid:
+   Creates a two-column layout on larger screens.
+   ------------------------------------------------------------ */
+
+.result-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  text-align: left;
+  padding: 18px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  margin: 24px 0;
+}
+
+
+/* ------------------------------------------------------------
+   .result-meta strong,
+   .result-meta .muted
+
+   Displays metadata labels and values on separate lines.
+   ------------------------------------------------------------ */
+
+.result-meta strong,
+.result-meta .muted {
+  display: block;
+}
+
+
+/* ------------------------------------------------------------
+   .result-meta .muted
+
+   Styles the smaller metadata labels.
+
+   Example:
+   "Department" or "Date Submitted".
+   ------------------------------------------------------------ */
+
+.result-meta .muted {
+  font-size: .8rem;
+  margin-bottom: 5px;
+}
+
+
+/* ------------------------------------------------------------
+   .result-buttons
+
+   Container for action buttons below the confirmation.
+
+   Examples:
+   - Track Ticket
+   - Return to Submit Ticket
+
+   flex-wrap:
+   Allows buttons to move to another row on smaller screens.
+   ------------------------------------------------------------ */
+
+.result-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+
+/* ============================================================
+   SECTION 7: MOBILE RESPONSIVE DESIGN
+
+   BREAKPOINT:
+   Screens 600px wide or smaller.
+
+   PURPOSE:
+   - Reduces excessive spacing on small devices.
+   - Makes the Submit button full-width.
+   - Keeps the Track Ticket button easy to tap.
+   - Stacks confirmation details into one column.
+
+   IMPORTANT:
+   Desktop styling above remains the default.
+   These rules only apply to smaller screens.
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+  /* ----------------------------------------------------------
+     MOBILE: LANDING PAGE CONTAINER
+
+     Reduces spacing so the content fits smaller screens.
+     ---------------------------------------------------------- */
+
+  .entry-container {
+    padding: 22px 15px 48px;
+  }
+
+
+  /* ----------------------------------------------------------
+     MOBILE: SUBMISSION FORM PANEL
+
+     Reduces internal padding to provide more room for
+     labels, text inputs, and uploaded photos.
+     ---------------------------------------------------------- */
+
+  .entry-panel {
+    padding: 20px 16px;
+  }
+
+
+  /* ----------------------------------------------------------
+     MOBILE: SUBMIT BUTTON
+
+     Makes the Submit button span the available width
+     so it is easier to tap.
+     ---------------------------------------------------------- */
+
+  .form-actions .button {
+    width: 100%;
+  }
+
+
+  /* ----------------------------------------------------------
+     MOBILE: TRACK TICKET BUTTON
+
+     Keeps the Track Ticket button at a comfortable
+     touch-target height.
+     ---------------------------------------------------------- */
+
+  .landing-track-actions .button {
+    min-height: 48px;
+  }
+
+
+  /* ----------------------------------------------------------
+     MOBILE: SUBMISSION CONFIRMATION
+
+     Adjusts margins and padding for small screens.
+     ---------------------------------------------------------- */
+
+  .submission-result {
+    margin: 15px auto;
+    padding: 22px 18px;
+  }
+
+
+  /* ----------------------------------------------------------
+     MOBILE: SUBMISSION METADATA
+
+     Changes the two-column detail layout into one column
+     for better readability on phones.
+     ---------------------------------------------------------- */
+
+  .result-meta {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+/* Align the ticket ID and copy button. */
+.ticket-id-actions {
+  display: flex;
+  flex-direction: column;
+   align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+/* Keep longer ticket IDs within the container. */
+.ticket-id-actions strong {
+  overflow-wrap: anywhere;
+}
+
+/* Style the copy button inside the ticket reference box. */
+.copy-ticket-button {
+  padding: 9px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  background: hsla(0, 11%, 29%, 0.338);
+  color: #ffffff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+/* Highlight the copy button when hovered. */
+.copy-ticket-button:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+/* Show a visible keyboard focus indicator. */
+.copy-ticket-button:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+/* Display clipboard confirmation feedback. */
+#copy-feedback:not(:empty) {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #ffffff;
+}
+
+
+
+
+/* ============================================================
+   END OF FILE: submit.css
+
+   QUICK DEBUGGING GUIDE:
+
+   Landing page spacing:
+   -> Section 1
+
+   Form panel and fields:
+   -> Section 2
+
+   Photo upload and previews:
+   -> Section 3
+
+   Form validation and Submit button:
+   -> Section 4
+
+   Track Ticket button position:
+   -> Section 5
+
+   Success page and ticket reference:
+   -> Section 6
+
+   Mobile layout:
+   -> Section 7
+
+   RELATED FILES:
+   - public/js/pages/submit.js
+   - public/js/pages/success.js
+   - public/css/base.css
+   - public/js/lib/ticket-rules.js
+
+   NOTE:
+   CSS controls appearance only.
+   Form validation and submission logic belong in JavaScript.
+   ============================================================ */

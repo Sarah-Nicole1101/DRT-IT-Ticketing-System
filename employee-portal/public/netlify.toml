@@ -1,0 +1,5 @@
+# Static Employee Portal only. The separate Admin Portal must be a different site/build.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

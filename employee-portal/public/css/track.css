@@ -1,0 +1,298 @@
+/* ============================================================
+   DRT EMPLOYEE PORTAL — TRACK TICKET PAGE
+   Used by: pages/track.js
+   Office dropdown OR exact Ticket ID search; modal in index.html.
+   ============================================================ */
+
+/* 1. TRACKING PAGE HEADING + RETURN TO TICKET FORM. */
+.tracking-container {
+  max-width: 1020px;
+  padding-top: 38px;
+}
+
+.tracking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.tracking-header h1 {
+  margin: 6px 0 12px;
+}
+
+.tracking-header p {
+  max-width: 650px;
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.tracking-header .button {
+  flex: none;
+}
+
+/* 2. SEARCH — by exact Ticket ID or a selected municipal office. */
+.tracking-search {
+  border-top: 4px solid var(--magenta);
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) auto minmax(230px, 1.3fr) auto;
+  gap: 12px;
+  align-items: end;
+  padding: 22px;
+}
+
+.tracking-field {
+  min-width: 0;
+}
+
+.tracking-field label {
+  display: block;
+  font-size: .83rem;
+  margin-bottom: 8px;
+}
+
+.tracking-field input,
+.tracking-field select {
+  height: 49px;
+}
+
+.tracking-separator {
+  font-size: .8rem;
+  color: var(--muted);
+  padding-bottom: 16px;
+  font-weight: 800;
+}
+
+.tracking-search-button {
+  min-height: 49px;
+}
+
+.tracking-help {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: .81rem;
+  color: var(--muted);
+}
+
+.tracking-search #track-error {
+  grid-column: 1 / -1;
+}
+
+/* 3. SEARCH RESULTS — heading and two-choice sort selector. */
+.tracking-results-header {
+  margin: 36px 0 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.tracking-results-header h2 {
+  font-size: 1.4rem;
+  margin: 5px 0;
+}
+
+.tracking-results-header p {
+  margin: 0;
+}
+
+.tracking-sort {
+  min-width: 168px;
+}
+
+.tracking-sort label {
+  display: block;
+  font-size: .78rem;
+  margin-bottom: 6px;
+}
+
+/* 4. CLICKABLE TICKET LIST — ID, OFFICE, STATUS, TIME. */
+.ticket-table-wrap {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.ticket-table {
+  border-collapse: collapse;
+  width: 100%;
+  text-align: left;
+}
+
+.ticket-table th {
+  padding: 14px 16px;
+  background: #ecf1fc;
+  font-size: .78rem;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: .045em;
+}
+
+.ticket-table td.ticket-cell {
+  padding: 0;
+  border-top: 1px solid var(--border);
+}
+
+.ticket-row-button {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  text-align: left;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 70px;
+  padding: 14px 16px;
+  border: 0;
+  background: white;
+  color: var(--ink);
+  font-size: .88rem;
+}
+
+.ticket-row-button:hover,
+.ticket-row-button:focus-visible {
+  background: #f4f7ff;
+}
+
+.ticket-reference {
+  font-family: "SFMono-Regular", ui-monospace, monospace;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.ticket-office,
+.ticket-date {
+  font-size: .84rem;
+  color: var(--muted);
+}
+
+.tracking-table-help {
+  margin-top: 11px;
+}
+
+/* 5. PROGRESS POPUP — in the SAME tracking page. */
+.progress-dialog {
+  width: min(660px, calc(100% - 24px));
+}
+
+.ticket-detail-dialog {
+  padding: clamp(16px, 3vw, 28px);
+}
+
+.ticket-detail-dialog h2 {
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+.ticket-detail-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  padding: 20px;
+  margin: 18px 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #f8faff;
+}
+
+.ticket-detail-meta > div {
+  min-width: 0;
+}
+
+.ticket-detail-meta span:not(.badge) {
+  display: block;
+  font-size: .75rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.ticket-detail-meta strong {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.ticket-detail-note {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-top: 14px;
+}
+
+.ticket-detail-note h3 {
+  font-size: 1.02rem;
+  margin-bottom: 9px;
+}
+
+.ticket-detail-note p {
+  margin-bottom: 0;
+  color: #394767;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* 6. TABLET + MOBILE — no horizontal page overflow. */
+@media (max-width: 860px) {
+  .tracking-search {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  }
+
+  .tracking-search-button {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 650px) {
+  .tracking-container {
+    padding: 22px 15px 48px;
+  }
+
+  .tracking-header,
+  .tracking-results-header {
+    display: block;
+  }
+
+  .tracking-header .button,
+  .tracking-sort {
+    margin-top: 15px;
+  }
+
+  .tracking-search {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 18px;
+  }
+
+  .tracking-separator {
+    text-align: center;
+    padding: 0;
+  }
+
+  .tracking-sort {
+    width: 100%;
+  }
+
+  .ticket-table thead {
+    display: none;
+  }
+
+  .ticket-row-button {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 16px;
+  }
+
+  .ticket-row-button .ticket-reference {
+    grid-column: 1 / -1;
+  }
+
+  .ticket-row-button .ticket-date {
+    text-align: right;
+  }
+
+  .ticket-detail-meta {
+    grid-template-columns: 1fr;
+  }
+}
