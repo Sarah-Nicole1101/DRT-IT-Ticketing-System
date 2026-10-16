@@ -51,7 +51,7 @@ export function renderTrack() {
         <div class="tracking-field">
           <label for="track-id">Search by Ticket ID (optional)</label>
           <input id="track-id" name="reference" type="search" value="${escapeHtml(reference)}"
-            autocomplete="off" placeholder="e.g., DRT-IT-2026-A1B2C3D4E5F6" />
+            autocomplete="off" placeholder="e.g., TKT-2026-10-001" />
         </div>
 
         <!-- Separate the two available search methods. -->
@@ -65,7 +65,7 @@ export function renderTrack() {
         <!-- Submit the search without leaving the page. -->
         <button type="submit" class="button primary tracking-search-button">Search Tickets</button>
 
-        <p class="tracking-help">Enter a Ticket ID to find that ticket only. Leave it blank to show all tickets for the selected office.</p>
+        <p class="tracking-help"> Enter a Ticket ID to find a specific ticket. Alternatively, leave the Ticket ID field blank and select a municipal office to view all tickets submitted under that office.</p>
         <p id="track-error" class="field-error" role="alert"></p>
       </form>
 

@@ -26,7 +26,6 @@ export function renderSubmit() {
       <header class="entry-intro">
         <div class="eyebrow">Municipal Employee Support</div>
         <h1>Submit an IT Concern</h1>
-        <p>Tell us what happened. All four fields are required; no registration needed.</p>
       </header>
 
       <section class="panel entry-panel" aria-label="Submit your IT concern">

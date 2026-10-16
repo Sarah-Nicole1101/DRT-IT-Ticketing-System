@@ -1,0 +1,471 @@
+
+/* SECTION 1: LANDING PAGE LAYOUT AND BACKGROUND
+   Controls the full-screen layout, hides the shared header/footer,
+   and displays the DRT Municipal Hall background photograph. */
+
+body.is-landing .site-header,
+body.is-landing .site-footer {
+  display: none;
+}
+
+body.is-landing::before,
+body.is-landing::after {
+  display: none;
+}
+
+body.is-landing .site-main {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.municipal-landing {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 32px 16px;
+  overflow: hidden;
+}
+
+.municipal-landing::before {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  z-index: -1;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(10, 18, 48, 0.12),
+      rgba(10, 18, 48, 0.20)
+    ),
+    url('/assets/drt-municipal-hall-background.jpg')
+      center / cover no-repeat;
+
+  filter: none;
+}
+
+
+/* SECTION 2: TRANSPARENT GLASS CARD
+   Controls the PIN form panel, including its width, transparency,
+   border, shadow, and frosted-glass effect. */
+
+.municipal-access-card {
+  width: min(100%, 650px);
+  padding: clamp(26px, 5vw, 54px);
+
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+
+  background: rgba(255, 255, 255, 0.25);
+
+  box-shadow:
+    0 24px 80px rgba(5, 12, 38, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+  text-align: center;
+
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+
+/* SECTION 3: MUNICIPAL BRANDING AND WELCOME HEADING
+   Styles the official DRT seal, municipal employee access label,
+   magenta divider, and welcome heading with stronger text contrast. */
+
+.municipal-seal {
+  display: block;
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  margin: 0 auto 20px;
+}
+
+.municipal-eyebrow {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 0;
+
+  background: transparent;
+  border: none;
+  border-radius: 0;
+
+  color: #061538;
+  font-size: 0.85rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+
+  text-shadow:
+    0 1px 2px rgba(255, 255, 255, 1),
+    0 0 8px rgba(255, 255, 255, 0.85);
+}
+
+.municipal-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  margin: 0 auto 20px;
+
+  color: #A3006B;
+  font-size: 1.15rem;
+  font-weight: 900;
+
+  filter: drop-shadow(
+    0 1px 2px rgba(255, 255, 255, 0.9)
+  );
+}
+
+.municipal-divider::before,
+.municipal-divider::after {
+  content: '';
+  width: 90px;
+  height: 4px;
+
+  background: #A3006B;
+  border-radius: 10px;
+
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.65),
+    0 2px 5px rgba(10, 18, 48, 0.15);
+}
+
+.municipal-access-card h1 {
+  margin: 0 0 32px;
+
+  font-family: Poppins, Inter, sans-serif;
+  font-size: clamp(1.6rem, 4vw, 2.55rem);
+  font-weight: 800;
+  line-height: 1.23;
+  letter-spacing: -0.035em;
+
+  color: #0A1230;
+
+  text-shadow:
+    0 1px 3px rgba(255, 255, 255, 0.75);
+}
+
+.municipal-access-card h1 em {
+  font-style: normal;
+  color: #A3006B;
+}
+
+
+/* SECTION 4: PIN FORM AND CONTINUE BUTTON
+   Controls the PIN label, input, placeholder, validation errors,
+   and Continue button with hover and click effects. */
+
+.municipal-pin-form {
+  display: grid;
+  gap: 12px;
+  text-align: left;
+}
+
+.municipal-pin-form label {
+  color: #061538;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+
+  text-shadow:
+    0 1px 2px rgba(255, 255, 255, 0.85);
+}
+
+.municipal-pin-form input {
+  height: 62px;
+  padding: 14px 18px;
+
+  border: 2px solid #12266B;
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.88);
+  color: #0A1230;
+
+  font-size: 1.1rem;
+  letter-spacing: 0.12em;
+
+  box-shadow:
+    0 4px 12px rgba(10, 18, 48, 0.08);
+}
+
+.municipal-pin-form input[aria-invalid='true'] {
+  border-color: #B42318;
+}
+
+.municipal-pin-form input::placeholder {
+  color: #64748B;
+  letter-spacing: normal;
+}
+
+
+/* PIN VISIBILITY TOGGLE
+   Positions the eye icon inside the PIN input without
+   changing the existing form layout or styling. */
+
+.municipal-pin-input-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.municipal-pin-input-wrap input {
+  width: 100%;
+  padding-right: 64px;
+}
+
+.municipal-pin-toggle {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+  padding: 8px;
+
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+
+  color: #12266B;
+  cursor: pointer;
+
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.municipal-pin-toggle:hover {
+  background: rgba(18, 38, 107, 0.08);
+  color: #A3006B;
+}
+
+.municipal-pin-toggle svg {
+  width: 23px;
+  height: 23px;
+}
+
+/* Display the correct icon based on PIN visibility. */
+.municipal-pin-toggle [data-icon="hide"] {
+  display: none;
+}
+
+.municipal-pin-toggle[data-visible="true"] [data-icon="show"] {
+  display: none;
+}
+
+.municipal-pin-toggle[data-visible="true"] [data-icon="hide"] {
+  display: block;
+}
+
+
+.municipal-pin-error {
+  min-height: 1.1em;
+  margin: -4px 0 0;
+
+  color: #991B1B;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.municipal-continue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  min-height: 56px;
+  border: 0;
+  border-radius: 12px;
+
+  background: #12266B;
+  color: #FFFFFF;
+
+  font-size: 1rem;
+  font-weight: 800;
+
+  box-shadow:
+    0 6px 18px rgba(10, 18, 48, 0.16);
+
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+.municipal-continue:hover {
+  background: #0A1230;
+}
+
+.municipal-continue:active {
+  transform: translateY(1px);
+}
+
+
+/* SECTION 5: MUNICIPAL NOTICE AND IT ADMIN REMINDER
+   Styles the municipal-use badge and shield icon, while keeping
+   the IT Admin reminder bold, visible, and free of extra borders. */
+
+.municipal-only-notice {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  max-width: 100%;
+  margin: 22px auto 20px;
+  padding: 12px 18px;
+
+  border: 1px solid rgba(237, 196, 221, 0.9);
+  border-radius: 12px;
+
+  background: rgba(251, 232, 243, 0.92);
+  color: #89005A;
+
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-align: center;
+}
+
+.municipal-only-notice svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.municipal-help {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  width: 100%;
+  margin: 0;
+  padding: 16px 0 0;
+
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+
+  color: #061538;
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1.6;
+  text-align: center;
+
+  text-shadow:
+    0 1px 2px rgba(255, 255, 255, 1),
+    0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+.municipal-help svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+
+  margin-top: 0;
+  padding: 0;
+
+  color: #061538;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+
+  stroke: #061538;
+  stroke-width: 2.5;
+
+  filter: drop-shadow(
+    0 1px 2px rgba(255, 255, 255, 0.9)
+  );
+}
+
+.municipal-help svg [stroke] {
+  stroke: #061538;
+  stroke-width: 2.5;
+}
+
+.municipal-help span {
+  max-width: 440px;
+
+  color: #061538;
+  font-weight: 800;
+}
+
+
+/* SECTION 6: BROWSER COMPATIBILITY AND RESPONSIVE DESIGN
+   Provides fallback styles for unsupported browsers,
+   adjusts the layout for mobile devices, and reduces animations. */
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .municipal-access-card {
+    background: rgba(255, 255, 255, 0.55);
+  }
+}
+
+@media (max-width: 480px) {
+  .municipal-landing {
+    padding: 16px 12px;
+  }
+
+  .municipal-access-card {
+    border-radius: 16px;
+    padding: 28px 18px;
+    background: rgba(255, 255, 255, 0.32);
+  }
+
+  .municipal-seal {
+    width: 72px;
+    height: 72px;
+  }
+
+  .municipal-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+  }
+
+  .municipal-divider {
+    gap: 10px;
+  }
+
+  .municipal-divider::before,
+  .municipal-divider::after {
+    width: 60px;
+    height: 3px;
+  }
+
+  .municipal-access-card h1 {
+    font-size: clamp(1.35rem, 6vw, 1.9rem);
+  }
+
+  .municipal-pin-form input {
+    height: 54px;
+  }
+
+  .municipal-only-notice {
+    font-size: 0.69rem;
+    padding: 12px;
+  }
+
+  .municipal-help {
+    gap: 8px;
+    font-size: 0.82rem;
+  }
+
+  .municipal-help svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .municipal-continue {
+    transition: none;
+  }
+}
