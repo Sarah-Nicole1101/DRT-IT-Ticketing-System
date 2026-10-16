@@ -5,6 +5,7 @@ import { emptyState, statusBadge } from '../components/page-elements.js';
 import { getOffice } from '../data/departments.js';
 import { getTicketByReference, listTicketsByDepartment } from '../data/ticket-store.js';
 import { escapeHtml, readableDate } from '../lib/ticket-rules.js';
+import { loadTemplate, fillTemplate } from '../lib/template-loader.js';
 
 // Calculate how long it took to resolve a ticket.
 export function readableResolutionTime(createdAt, resolvedAt) {
@@ -26,85 +27,16 @@ export function readableResolutionTime(createdAt, resolvedAt) {
   return `${hours} hr${hours === 1 ? '' : 's'}${remaining ? ` ${remaining} min` : ''}`;
 }
 
-// Display the Track Ticket page and its search form.
-export function renderTrack() {
-  // Restore the selected office or ticket ID from the page URL.
+// Load the tracking layout while keeping search state in the URL.
+export async function renderTrack() {
   const params = new URLSearchParams(window.location.search);
   const office = getOffice(params.get('office'));
   const reference = params.get('id') ?? '';
 
-  return `
-    <div class="container tracking-container">
-
-      <!-- Display the page heading and return button. -->
-      <div class="tracking-header">
-        <div>
-          <div class="eyebrow">Ticket History</div>
-          <h1>Track Ticket</h1>
-          <p>Search for one ticket using its ID, or choose a municipal office to view all reported concerns.</p>
-        </div>
-        <a href="/" data-link class="button secondary">← Submit Ticket</a>
-      </div>
-
-      <!-- Search by exact ticket ID or selected municipal office. -->
-      <form id="track-form" class="panel tracking-search" novalidate>
-        <div class="tracking-field">
-          <label for="track-id">Search by Ticket ID (optional)</label>
-          <input id="track-id" name="reference" type="search" value="${escapeHtml(reference)}"
-            autocomplete="off" placeholder="e.g., TKT-2026-10-001" />
-        </div>
-
-        <!-- Separate the two available search methods. -->
-        <div class="tracking-separator" aria-hidden="true">OR</div>
-
-        <div class="tracking-field tracking-office">
-          <label for="track-office">Choose or Search Your Municipal Office</label>
-          <select id="track-office" name="office">${officeOptions(office?.code ?? '')}</select>
-        </div>
-
-        <!-- Submit the search without leaving the page. -->
-        <button type="submit" class="button primary tracking-search-button">Search Tickets</button>
-
-        <p class="tracking-help"> Enter a Ticket ID to find a specific ticket. Alternatively, leave the Ticket ID field blank and select a municipal office to view all tickets submitted under that office.</p>
-        <p id="track-error" class="field-error" role="alert"></p>
-      </form>
-
-      <!-- Show search results below the form. -->
-      <section id="results-section" aria-label="Ticket search results" hidden>
-        <div class="tracking-results-header">
-          <div>
-            <div class="eyebrow">Search Results</div>
-            <h2 id="result-title">Tickets</h2>
-            <p id="result-count" class="caption"></p>
-          </div>
-
-          <!-- Allow sorting tickets by submission date. -->
-          <div class="tracking-sort">
-            <label for="sort-filter">Sort by</label>
-            <select id="sort-filter">
-              <option value="newest">Newest first</option>
-              <option value="oldest">Oldest first</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Display matching tickets in a table. -->
-        <div class="ticket-table-wrap">
-          <table class="ticket-table">
-            <thead><tr><th>Ticket ID</th><th>Office</th><th>Status</th><th>Time Submitted</th></tr></thead>
-
-            <!-- JavaScript inserts ticket rows here. -->
-            <tbody id="ticket-rows"></tbody>
-          </table>
-
-          <!-- Display an empty or loading message when needed. -->
-          <div id="tracking-empty"></div>
-        </div>
-
-        <p class="tracking-help tracking-table-help">Select a ticket row to view its progress and IT notes.</p>
-      </section>
-    </div>
-  `;
+  return fillTemplate(await loadTemplate('track'), {
+    ticketId: escapeHtml(reference),
+    officeOptions: officeOptions(office?.code ?? '')
+  });
 }
 
 // Set up the search form, sorting, and ticket details popup.
@@ -139,24 +71,21 @@ export function mountTrack() {
     document.getElementById('result-count').textContent =
       `${sorted.length} ticket${sorted.length === 1 ? '' : 's'} found`;
 
-    // Create a clickable row for each ticket.
-    rows.innerHTML = sorted.map((ticket, index) => {
+    // Clone the HTML row template and assign values as text (not raw HTML).
+    const rowTemplate = document.getElementById('ticket-row-template');
+    rows.replaceChildren();
+    sorted.forEach((ticket, index) => {
       selectedTickets.set(String(index), ticket);
-
-      return `
-        <tr>
-          <td colspan="4" class="ticket-cell">
-            <button class="ticket-row-button" type="button" data-ticket-index="${index}"
-              aria-label="View progress for ticket ${escapeHtml(ticket.reference)}">
-              <span class="ticket-reference">${escapeHtml(ticket.reference)}</span>
-              <span class="ticket-office">${escapeHtml(ticket.departmentCode)}</span>
-              <span class="ticket-status">${statusBadge(ticket.status)}</span>
-              <span class="ticket-date">${readableDate(ticket.createdAt)}</span>
-            </button>
-          </td>
-        </tr>
-      `;
-    }).join('');
+      const row = rowTemplate.content.firstElementChild.cloneNode(true);
+      const button = row.querySelector('button[data-ticket-index]');
+      button.dataset.ticketIndex = String(index);
+      button.setAttribute('aria-label', `View progress for ticket ${ticket.reference}`);
+      row.querySelector('[data-reference]').textContent = ticket.reference;
+      row.querySelector('[data-office]').textContent = ticket.departmentCode;
+      row.querySelector('[data-status]').innerHTML = statusBadge(ticket.status);
+      row.querySelector('[data-date]').textContent = readableDate(ticket.createdAt);
+      rows.append(row);
+    });
 
     // Show an empty-state message if no tickets matched.
     empty.innerHTML = sorted.length
@@ -238,36 +167,19 @@ export function mountTrack() {
     const adminNote = ticket.adminNote || ticket.resolutionNote ||
       [...(ticket.events ?? [])].reverse().find((event) => event.actor === 'admin')?.publicNote;
 
-    // Build the ticket details popup.
-    dialog.innerHTML = `
-      <div class="dialog-body ticket-detail-dialog">
-        <div class="dialog-top">
-          <h2 id="dialog-title">Ticket Progress</h2>
-          <button class="close-button" data-close-dialog type="button" aria-label="Close ticket progress">×</button>
-        </div>
-
-        <!-- Show the ticket reference, office, dates, and status. -->
-        <div class="ticket-detail-meta">
-          <div><span>Ticket ID</span><strong class="ticket-reference">${escapeHtml(ticket.reference)}</strong></div>
-          <div><span>Municipal Office</span><strong>${escapeHtml(office?.code ?? ticket.departmentCode)}</strong></div>
-          <div><span>Time Submitted</span><strong>${readableDate(ticket.createdAt)}</strong></div>
-          <div><span>Current Status</span>${statusBadge(ticket.status)}</div>
-          ${resolutionTime ? `<div><span>Resolution Time</span><strong>${resolutionTime}</strong></div>` : ''}
-        </div>
-
-        <!-- Show the concern submitted by the employee. -->
-        <section class="ticket-detail-note">
-          <h3>End User's Description</h3>
-          <p>${escapeHtml(ticket.description)}</p>
-        </section>
-
-        <!-- Show an IT note when one is available. -->
-        <section class="ticket-detail-note">
-          <h3>IT Note / Description</h3>
-          <p>${adminNote ? escapeHtml(adminNote) : 'No IT notes available yet.'}</p>
-        </section>
-      </div>
-    `;
+    // Clone the dialog template and safely assign ticket information.
+    const template = document.getElementById('ticket-detail-template');
+    dialog.replaceChildren(template.content.cloneNode(true));
+    dialog.querySelector('[data-detail-reference]').textContent = ticket.reference;
+    dialog.querySelector('[data-detail-office]').textContent = office?.code ?? ticket.departmentCode;
+    dialog.querySelector('[data-detail-date]').textContent = readableDate(ticket.createdAt);
+    dialog.querySelector('[data-detail-status]').innerHTML = statusBadge(ticket.status);
+    dialog.querySelector('[data-detail-description]').textContent = ticket.description;
+    dialog.querySelector('[data-detail-note]').textContent = adminNote || 'No IT notes available yet.';
+    if (resolutionTime) {
+      dialog.querySelector('[data-resolution-row]').hidden = false;
+      dialog.querySelector('[data-resolution-time]').textContent = resolutionTime;
+    }
 
     // Open the dialog and connect its close button.
     dialog.showModal();

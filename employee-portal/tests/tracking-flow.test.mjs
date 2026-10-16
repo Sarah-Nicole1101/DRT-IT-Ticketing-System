@@ -1,3 +1,6 @@
+import { installTemplateFetch } from './helpers/template-fetch.mjs';
+installTemplateFetch();
+
 
 // Import Node.js testing and assertion tools.
 import assert from 'node:assert/strict';
@@ -71,8 +74,8 @@ test('resolution duration is only available when completion time is supplied', (
 });
 
 // Test required form fields and ticket tracking navigation.
-test('landing form has 4 required fields and a bottom-right tracking action', () => {
-  const html = renderSubmit();
+test('landing form has 4 required fields and a bottom-right tracking action', async () => {
+  const html = await renderSubmit();
 
   // Verify the required submission form fields.
   assert.match(html, /id="description"[\s\S]*?required/);
@@ -89,7 +92,7 @@ test('landing form has 4 required fields and a bottom-right tracking action', ()
 });
 
 // Test Ticket ID searching and municipal office selection.
-test('tracking search offers both ID lookup and all 25 offices in a dropdown', () => {
+test('tracking search offers both ID lookup and all 25 offices in a dropdown', async () => {
   // Temporarily simulate the browser's window location.
   const oldLocation = globalThis.window;
 
@@ -101,7 +104,7 @@ test('tracking search offers both ID lookup and all 25 offices in a dropdown', (
 
   try {
     // Render the Track Ticket page.
-    const html = renderTrack();
+    const html = await renderTrack();
 
     // Verify the ticket ID search field.
     assert.match(html, /id="track-id"/);

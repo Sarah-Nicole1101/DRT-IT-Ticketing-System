@@ -1,0 +1,81 @@
+<div class="container entry-container">
+      <header class="entry-intro">
+        <div class="eyebrow">Municipal Employee Support</div>
+        <h1>Submit an IT Concern</h1>
+      </header>
+
+      <section class="panel entry-panel" aria-label="Submit your IT concern">
+        <form id="ticket-form" novalidate>
+          <!-- STEP 1: ISSUE DESCRIPTION -->
+          <div class="entry-field">
+            <label for="description">1. Describe the IT issue <span class="required-marker">REQUIRED</span></label>
+            <textarea
+              id="description"
+              name="description"
+              required
+              minlength="8"
+              maxlength="1500"
+              placeholder="Example: The office computer does not turn on."
+              aria-describedby="note-help note-error"
+            ></textarea>
+            <span id="note-help" class="field-note">Describe the problem and where it happened.</span>
+            <span id="note-error" class="field-error" role="alert"></span>
+          </div>
+
+          <!-- STEP 2: EMPLOYEE FULL NAME -->
+          <div class="entry-field">
+            <label for="full-name">2. Full Name <span class="required-marker">REQUIRED</span></label>
+            <input
+              id="full-name"
+              name="fullName"
+              autocomplete="name"
+              required
+              maxlength="120"
+              placeholder="e.g., Maria Santos"
+              aria-describedby="name-error"
+            />
+            <span id="name-error" class="field-error" role="alert"></span>
+          </div>
+
+          <!-- STEP 3: MUNICIPAL OFFICE -->
+          <div class="entry-field">
+            <label for="department">3. Municipal Office / Department <span class="required-marker">REQUIRED</span></label>
+            <select id="department" name="departmentCode" required aria-describedby="office-error">
+              {{officeOptions}}
+            </select>
+            <span id="office-error" class="field-error" role="alert"></span>
+          </div>
+
+          <!-- STEP 4: REQUIRED PHOTO -->
+          <div class="entry-field">
+            <label for="photo-upload">4. Attach a Photo <span class="required-marker">REQUIRED</span></label>
+            <div class="file-box">
+              <input
+                id="photo-upload"
+                name="photos"
+                type="file"
+                required
+                accept="image/jpeg,image/png,image/webp"
+                multiple
+                aria-describedby="photo-note photo-error"
+              />
+              <p id="photo-note" class="field-note">JPG, PNG or WebP • Maximum {{maxImages}} photos • {{maxSizeMb}} MB each</p>
+            </div>
+            <div id="preview-grid" class="preview-grid" aria-live="polite"></div>
+            <span id="photo-error" class="field-error" role="alert"></span>
+          </div>
+
+          <p id="form-error" class="form-fatal" role="alert"></p>
+          <div class="form-actions">
+            <button type="submit" id="submit-button" class="button primary">Submit Ticket →</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Bottom-right navigation, as requested in the new wireframe. -->
+      <div class="landing-track-actions">
+        <a href="/track" data-link class="button secondary track-entry-button">
+          Track Ticket <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>

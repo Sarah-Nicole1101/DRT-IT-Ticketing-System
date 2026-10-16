@@ -1,0 +1,129 @@
+/* Confirmation page: reference display, metadata, and Copy ID button. */
+
+.submission-result {
+  max-width: 640px;
+  margin: 45px auto;
+  padding: 34px;
+  text-align: center;
+}
+
+.submission-check {
+  font-size: 2rem;
+  color: #16803d;
+  margin-bottom: 8px;
+}
+
+.reference-box {
+  margin: 22px 0;
+  border-radius: 12px;
+  background: var(--midnight);
+  padding: 20px;
+  color: white;
+}
+
+.reference-box span,
+.reference-box strong {
+  display: block;
+}
+
+.reference-box span {
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  color: #ccd8f9;
+}
+
+.reference-box strong {
+  font-family: "SFMono-Regular", ui-monospace, monospace;
+  font-size: clamp(.86rem, 3.5vw, 1.4rem);
+  overflow-wrap: anywhere;
+  margin: 10px 0;
+}
+
+.reference-box p {
+  color: #e4eaff;
+  margin-bottom: 0;
+  font-size: .82rem;
+}
+
+.result-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  text-align: left;
+  padding: 18px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  margin: 24px 0;
+}
+
+.result-meta strong,
+.result-meta .muted {
+  display: block;
+}
+
+.result-meta .muted {
+  font-size: .8rem;
+  margin-bottom: 5px;
+}
+
+.result-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* CONFIRMATION MOBILE LAYOUT */
+@media (max-width: 600px) {
+  .submission-result {
+    margin: 15px auto;
+    padding: 22px 18px;
+  }
+
+  .result-meta {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* COPY ID CONTROLS */
+.ticket-id-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.ticket-id-actions strong {
+  overflow-wrap: anywhere;
+}
+
+.copy-ticket-button {
+  padding: 9px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  background: hsla(0, 11%, 29%, 0.338);
+  color: #ffffff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.copy-ticket-button:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.copy-ticket-button:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+#copy-feedback:not(:empty) {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #ffffff;
+}

@@ -1,29 +1,5 @@
-/*
- * FILE: public/css/base.css
- * SCOPE: Shared Employee Portal styles (Home, Submit Concern, Track Tickets)
- * HTML ENTRY: public/index.html
- * IMPORTED BY: public/css/styles.css
- *
- * PURPOSE:
- * Maintains the municipal color palette, typography, shared layout, navigation,
- * buttons, badges, forms, ticket progress dialog, and responsive rules.
- *
- * HOW TO EDIT:
- * - Edit site-wide appearance here (e.g., navbar, footer, common buttons).
- * - Edit page-specific appearance in home.css, submit.css, or track.css.
- * - Comments describe WHERE each selector is used; they do not affect rendering.
- * - End User Portal ONLY. No IT Admin styling or navigation belongs here.
- */
-
- /* ============================================================
-   PAGE BACKGROUND — soft blurred decorative background
-   Used by: whole Employee Portal
-   Purpose:
-   - Adds soft blurred color blobs behind the page
-   - Keeps the grid/light background visible
-   - Makes the white form stand out more
-   ============================================================ */
-
+/* Shared Employee Portal styles. Edit page-specific designs in their own CSS files. */
+/* BACKGROUND AND BRAND COLORS: common styles used across employee pages. */
 body {
   position: relative;
   min-height: 100vh;
@@ -31,7 +7,6 @@ body {
   background: #f4f6fb;
 }
 
-/* Blurred color layer behind the content */
 body::before {
   content: "";
   position: fixed;
@@ -49,7 +24,6 @@ body::before {
   transform: scale(1.08);
 }
 
-/* Optional soft grid layer on top of the blur */
 body::after {
   content: "";
   position: fixed;
@@ -64,12 +38,6 @@ body::after {
   opacity: 0.6;
 }
 
-
-/* ============================================================
-   1. MUNICIPAL COLORS AND DESIGN TOKENS
-   Shared theme settings used across Home, Submit Concern, Track Tickets, header, footer, buttons, and status labels.
-   ============================================================ */
-/* Defines DRT brand colors and common design variables; update theme values here instead of changing them on every page. */
 :root {
   --magenta: #A3006B;
   --navy: #12266B;
@@ -85,17 +53,11 @@ body::after {
   --shadow: 0 8px 20px rgba(17,37,87,.06);
 }
 
-
-/* ============================================================
-   2. GLOBAL RESET AND TYPOGRAPHY
-   Default sizing, fonts, headings, form controls, and accessible focus states.
-   ============================================================ */
-/* Includes borders and padding in total element width so responsive layouts size predictably. */
+/* GLOBAL ELEMENT STYLES: common styles used across employee pages. */
 * {
   box-sizing: border-box;
 }
 
-/* Sets the site-wide Inter font, base text size, default text color, and smooth page scrolling. */
 html {
   font-family: Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   font-size: 16px;
@@ -103,7 +65,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Resets page margins, applies the pale grid-pattern background, and establishes a 320px minimum width. */
 body {
   margin: 0;
   background-color: var(--background);
@@ -112,72 +73,59 @@ body {
   min-width: 320px;
 }
 
-/* Removes the default top margin from headings and paragraphs for consistent spacing. */
 h1,h2,h3,p {
   margin-top: 0;
 }
 
-/* Uses Poppins for headings and controls heading line height and letter spacing. */
 h1,h2,h3 {
   font-family: Poppins,Inter,sans-serif;
   line-height: 1.18;
   letter-spacing: -.025em;
 }
 
-/* Sets responsive size for primary page titles, including the Home page hero. */
 h1 {
   font-size: clamp(2rem,4vw,3rem);
 }
 
-/* Sets responsive size for secondary page titles and content headings. */
 h2 {
   font-size: clamp(1.25rem,3vw,2rem);
 }
 
-/* Adds readable line spacing to paragraph text. */
 p {
   line-height: 1.65;
 }
 
-/* Makes form controls use the same typography as the rest of the site. */
 button,input,select,textarea {
   font: inherit;
 }
 
-/* Improves how touch interactions are handled on phones and tablets. */
 button,a,select {
   touch-action: manipulation;
 }
 
-/* Displays a pointer cursor for clickable buttons. */
 button {
   cursor: pointer;
 }
 
-/* Visually dims temporarily disabled buttons and changes the cursor. */
 button:disabled {
   cursor: wait;
   opacity: .65;
 }
 
-/* Makes links inherit their surrounding text color unless a component overrides it. */
 a {
   color: inherit;
 }
 
-/* Displays a visible magenta keyboard-focus outline for interactive elements. */
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible {
   outline: 3px solid var(--magenta);
   outline-offset: 3px;
 }
 
-/* Styles field labels such as Full Name, Department, and Problem Description. */
 label {
   font-weight: 700;
   font-size: .95rem;
 }
 
-/* Defines shared dimensions, borders, backgrounds, and comfortable touch targets for form fields. */
 input,select,textarea {
   width: 100%;
   border: 1px solid #bdcbe1;
@@ -189,23 +137,15 @@ input,select,textarea {
   min-height: 48px;
 }
 
-/* Makes long issue descriptions vertically resizable and provides enough writing space. */
 textarea {
   resize: vertical;
   min-height: 150px;
 }
 
-/* Styles hint text shown inside empty inputs and text areas. */
 input::placeholder,textarea::placeholder {
   color: #64748b;
 }
 
-
-/* ============================================================
-   3. KEYBOARD ACCESSIBILITY
-   Skip-to-main-content link in index.html; shown when a keyboard user tabs to it.
-   ============================================================ */
-/* Positions the accessibility shortcut outside the viewport until focused. */
 .skip-link {
   position: absolute;
   top: -100px;
@@ -215,24 +155,17 @@ input::placeholder,textarea::placeholder {
   z-index: 20;
 }
 
-/* Reveals Skip to main content when a user navigates by keyboard. */
 .skip-link:focus {
   top: 12px;
 }
 
-
-/* ============================================================
-   4. TOP NAVIGATION / MUNICIPAL BRANDING
-   Shared navigation at the top of every employee page; HTML is in public/index.html.
-   ============================================================ */
-/* Styles the dark top navigation bar and magenta bottom accent. */
+/* HEADER AND NAVIGATION: common styles used across employee pages. */
 .site-header {
   background: var(--midnight);
   border-bottom: 3px solid var(--magenta);
   color: white;
 }
 
-/* Aligns municipal branding and the Home/Submit Concern/Track Tickets navigation links. */
 .header-inner {
   max-width: 1240px;
   margin: auto;
@@ -244,7 +177,6 @@ input::placeholder,textarea::placeholder {
   min-height: 73px;
 }
 
-/* Formats the clickable municipal logo and name on the left side of the header. */
 .brand {
   text-decoration: none;
   display: flex;
@@ -253,7 +185,6 @@ input::placeholder,textarea::placeholder {
   min-width: 0;
 }
 
-/* Adds a navy background and padding around the official DRT seal. */
 .brand-seal {
   background: var(--navy);
   padding: 5px;
@@ -263,19 +194,16 @@ input::placeholder,textarea::placeholder {
   flex: none;
 }
 
-/* Controls the displayed seal image size in the header. */
 .brand-seal img {
   width: 39px;
   height: 39px;
   object-fit: contain;
 }
 
-/* Prevents long municipal text from breaking the header layout. */
 .brand-text {
   min-width: 0;
 }
 
-/* Styles the bold Municipality of Doña Remedios Trinidad heading in the header. */
 .brand-text strong {
   display: block;
   font-weight: 800;
@@ -283,21 +211,18 @@ input::placeholder,textarea::placeholder {
   line-height: 1.18;
 }
 
-/* Styles the smaller IT Ticketing System subtitle beneath the municipal name. */
 .brand-text small {
   display: block;
   font-size: .72rem;
   color: #cbd6ee;
 }
 
-/* Places the employee navigation links in one horizontal row on larger screens. */
 .primary-nav {
   display: flex;
   gap: 6px;
   white-space: nowrap;
 }
 
-/* Sets spacing, color, and clickable size for Home, Submit Concern, and Track Tickets. */
 .primary-nav a {
   display: inline-flex;
   align-items: center;
@@ -310,30 +235,22 @@ input::placeholder,textarea::placeholder {
   color: #e7e9f4;
 }
 
-/* Highlights a navigation link when hovered or when it represents the current page. */
 .primary-nav a:hover,.primary-nav a[aria-current=page] {
   background: #ffffff19;
   color: white;
 }
 
-
-/* ============================================================
-   5. MAIN CONTENT AND FOOTER
-   Shared content wrapper and footer visible throughout the Employee Portal.
-   ============================================================ */
-/* Keeps short pages tall enough that the footer remains near the bottom. */
+/* MAIN CONTENT AND FOOTER: common styles used across employee pages. */
 .site-main {
   min-height: calc(100vh - 178px);
 }
 
-/* Styles the dark page footer and magenta top border. */
 .site-footer {
   background: var(--midnight);
   border-top: 3px solid var(--magenta);
   color: white;
 }
 
-/* Arranges the footer branding and the official-use notice. */
 .footer-inner {
   max-width: 1240px;
   margin: auto;
@@ -344,55 +261,43 @@ input::placeholder,textarea::placeholder {
   justify-content: space-between;
 }
 
-/* Places the footer seal beside the municipality and service name. */
 .footer-brand {
   display: flex;
   gap: 10px;
   align-items: center;
 }
 
-/* Sets the dimensions of the official seal inside the footer. */
 .footer-brand img {
   height: 40px;
   width: 40px;
   object-fit: contain;
 }
 
-/* Styles the municipality name in the footer. */
 .footer-brand strong {
   display: block;
   font-size: .72rem;
 }
 
-/* Styles secondary footer text and the official-use notice. */
 .footer-brand small,.footer-notice {
   font-size: .72rem;
   color: #d4dcf0;
 }
 
-/* Places the Municipal IT Support Service subtitle on its own line. */
 .footer-brand small {
   display: block;
 }
 
-
-/* ============================================================
-   6. SHARED LAYOUT AND TEXT HELPERS
-   Reusable page widths, labels, breadcrumbs, and information containers.
-   ============================================================ */
-/* Centers each page and controls its maximum width and outside spacing. */
+/* SHARED LAYOUT AND TEXT: common styles used across employee pages. */
 .container {
   max-width: 1050px;
   margin: 0 auto;
   padding: 30px 24px 76px;
 }
 
-/* Constrains narrower content such as the concern submission form. */
 .narrow {
   max-width: 720px;
 }
 
-/* Styles small uppercase section labels such as Ticket History. */
 .eyebrow {
   font-size: .75rem;
   font-weight: 800;
@@ -402,31 +307,26 @@ input::placeholder,textarea::placeholder {
   margin-bottom: 7px;
 }
 
-/* Applies subdued text color to supporting descriptions and hints. */
 .muted {
   color: var(--muted);
 }
 
-/* Provides a reusable smaller-text style. */
 .small {
   font-size: .84rem;
 }
 
-/* Styles the Home > Track Department Tickets / Submit Concern navigation trail. */
 .breadcrumb {
   color: #536886;
   font-size: .78rem;
   margin: 0 0 30px;
 }
 
-/* Styles the clickable Home link inside the breadcrumb. */
 .breadcrumb a {
   color: var(--navy);
   font-weight: 700;
   text-decoration: none;
 }
 
-/* Provides a shared white card with border, rounded corners, and shadow. */
 .panel {
   background: var(--white);
   border: 1px solid var(--border);
@@ -434,12 +334,7 @@ input::placeholder,textarea::placeholder {
   box-shadow: var(--shadow);
 }
 
-
-/* ============================================================
-   7. SHARED BUTTON COMPONENTS
-   Primary magenta and secondary outlined buttons on multiple employee pages.
-   ============================================================ */
-/* Sets baseline styling shared by all link-buttons and standard buttons. */
+/* BUTTONS AND BADGES: common styles used across employee pages. */
 .button {
   display: inline-flex;
   justify-content: center;
@@ -455,40 +350,29 @@ input::placeholder,textarea::placeholder {
   font-size: .92rem;
 }
 
-/* Uses DRT magenta for primary actions, such as Search Tickets or Submit Concern. */
 .button.primary {
   background: var(--magenta);
   color: white;
 }
 
-/* Darkens magenta when the pointer hovers over a primary action. */
 .button.primary:hover {
   background: #86005a;
 }
 
-/* Uses a white background with navy outline for secondary actions. */
 .button.secondary {
   background: white;
   border-color: var(--navy);
   color: var(--navy);
 }
 
-/* Adds a light background to secondary buttons on hover. */
 .button.secondary:hover {
   background: #f1f4fc;
 }
 
-/* Adds extra spacing around the focused shared button outline. */
 .button:focus-visible {
   outline-offset: 4px;
 }
 
-
-/* ============================================================
-   8. TICKET STATUS BADGES
-   Small colored indicators on ticket cards, detail views, and confirmation pages.
-   ============================================================ */
-/* Defines the common pill shape for ticket status labels. */
 .badge {
   display: inline-block;
   padding: 6px 10px;
@@ -497,35 +381,26 @@ input::placeholder,textarea::placeholder {
   border-radius: 999px;
 }
 
-/* Uses yellow to identify tickets in Pending status. */
 .badge.pending {
   background: #fff0c7;
   color: #895b00;
 }
 
-/* Uses green to identify Resolved tickets. */
 .badge.resolved {
   background: #dcfce7;
   color: #166534;
 }
 
-/* Uses red to identify Cancelled tickets. */
 .badge.cancelled {
   background: #fee2e2;
   color: #991b1b;
 }
 
-/* Keeps status text on a single line inside its badge. */
 .status-pill {
   white-space: nowrap;
 }
 
-
-/* ============================================================
-   9. FORM AND FEEDBACK ELEMENTS
-   Shared informational boxes and validation styles for Submit/Track pages.
-   ============================================================ */
-/* Styles blue informational notices, such as guidance on the submission pages. */
+/* FORMS AND FEEDBACK: common styles used across employee pages. */
 .info-banner {
   border: 1px solid #cfdaf0;
   background: #eef3ff;
@@ -534,21 +409,18 @@ input::placeholder,textarea::placeholder {
   color: #243d77;
 }
 
-/* Stacks a form label, control, and validation/help text vertically. */
 .field {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-/* Styles helper text underneath form fields. */
 .field-note {
   font-size: .78rem;
   line-height: 1.5;
   color: #64748b;
 }
 
-/* Displays validation errors for missing or invalid input. */
 .field-error {
   font-size: .81rem;
   color: #b42318;
@@ -556,12 +428,10 @@ input::placeholder,textarea::placeholder {
   min-height: 1em;
 }
 
-/* Highlights an invalid form field with a red border. */
 .error-input {
   border-color: #b42318 !important;
 }
 
-/* Visually hides text while keeping it accessible to screen readers. */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -571,7 +441,6 @@ input::placeholder,textarea::placeholder {
   white-space: nowrap;
 }
 
-/* Displays warm yellow notification boxes and explanatory alerts. */
 .notice {
   border: 1px solid #e9d18f;
   border-radius: 8px;
@@ -581,19 +450,13 @@ input::placeholder,textarea::placeholder {
   color: #624715;
 }
 
-/* Centers the loading message when content is being prepared. */
 .loading {
   text-align: center;
   padding: 40px;
   color: var(--muted);
 }
 
-
-/* ============================================================
-   10. TICKET PROGRESS DIALOG
-   Modal opened from View Progress on Track Tickets; dialog element lives in public/index.html.
-   ============================================================ */
-/* Controls width, height, border, and shadow of the ticket progress modal. */
+/* TICKET PROGRESS DIALOG: common styles used across employee pages. */
 .progress-dialog {
   width: min(520px,calc(100% - 30px));
   max-height: 90vh;
@@ -603,17 +466,14 @@ input::placeholder,textarea::placeholder {
   box-shadow: 0 15px 70px #090f2888;
 }
 
-/* Darkens the page behind an open progress modal. */
 .progress-dialog::backdrop {
   background: #061138ad;
 }
 
-/* Provides padding for content inside the progress dialog. */
 .dialog-body {
   padding: 24px;
 }
 
-/* Aligns the modal heading and Close button in the top row. */
 .dialog-top {
   display: flex;
   justify-content: space-between;
@@ -621,7 +481,6 @@ input::placeholder,textarea::placeholder {
   gap: 10px;
 }
 
-/* Styles the square button used to close a progress modal. */
 .close-button {
   font-size: 1.5rem;
   background: #eef1f7;
@@ -631,7 +490,6 @@ input::placeholder,textarea::placeholder {
   width: 44px;
 }
 
-/* Creates the vertical line for the ticket progress history. */
 .timeline {
   list-style: none;
   margin: 16px 0;
@@ -639,13 +497,11 @@ input::placeholder,textarea::placeholder {
   border-left: 3px solid var(--navy);
 }
 
-/* Positions each dated status update on the progress timeline. */
 .timeline li {
   padding: 0 0 20px 20px;
   position: relative;
 }
 
-/* Draws magenta circular markers next to each status update. */
 .timeline li:before {
   content: "";
   position: absolute;
@@ -658,12 +514,6 @@ input::placeholder,textarea::placeholder {
   border: 3px solid white;
 }
 
-
-/* ============================================================
-   11. NOTIFICATIONS, EMPTY STATES, AND FILTER CONTROLS
-   Reusable pop-up feedback, no-results layouts, and filter grid.
-   ============================================================ */
-/* Displays temporary confirmation and error messages near the bottom of the screen. */
 .toast {
   position: fixed;
   bottom: 18px;
@@ -677,7 +527,6 @@ input::placeholder,textarea::placeholder {
   box-shadow: 0 4px 20px #0a123059;
 }
 
-/* Styles the empty results card when no matching tickets exist. */
 .blank-state {
   background: white;
   border: 1px dashed var(--border);
@@ -686,32 +535,23 @@ input::placeholder,textarea::placeholder {
   border-radius: 12px;
 }
 
-/* Controls the heading spacing inside an empty results message. */
 .blank-state h3 {
   margin-bottom: 5px;
 }
 
-/* Displays related ticket search/filter controls in two columns on large screens. */
 .split-controls {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
 
-/* Styles small muted captions below cards or other supporting information. */
 .caption {
   font-size: .8rem;
   color: var(--muted);
 }
 
-
-/* ============================================================
-   12. MOBILE AND TABLET ADJUSTMENTS (700px and smaller)
-   Stacks header/footer, reduces padding, and displays filter controls in one column.
-   ============================================================ */
-  /* Applies only when the viewport matches: @media (max-width: 700px). */
 @media (max-width: 700px) {
-  /* Stacks the header brand and navigation vertically and reduces horizontal padding. */
+  
   .header-inner {
     padding: 8px 12px;
     flex-direction: column;
@@ -719,63 +559,44 @@ input::placeholder,textarea::placeholder {
     gap: 6px;
   }
 
-  /* Reduces the municipal name size so it fits smaller screens. */
   .brand-text strong {
     font-size: .72rem;
   }
 
-  /* Distributes navigation links across the available mobile width. */
   .primary-nav {
     justify-content: space-between;
   }
 
-  /* Reduces mobile link padding and text size without changing destinations. */
   .primary-nav a {
     padding: 9px 8px;
     font-size: .78rem;
   }
 
-
-/* ============================================================
-   6. SHARED LAYOUT AND TEXT HELPERS
-   Reusable page widths, labels, breadcrumbs, and information containers.
-   ============================================================ */
-  /* Reduces page gutters and bottom spacing on phones and small tablets. */
   .container {
     padding: 24px 16px 52px;
   }
 
-  /* Stacks footer information vertically and adjusts mobile spacing. */
   .footer-inner {
     padding: 18px 16px;
     align-items: flex-start;
     flex-direction: column;
   }
 
-  /* Removes unnecessary left padding from the footer notice. */
   .footer-notice {
     padding-left: 0;
   }
 
-  /* Stacks filter controls into a single column for narrow screens. */
   .split-controls {
     grid-template-columns: 1fr;
   }
 }
 
-
-/* ============================================================
-   13. EXTRA-SMALL PHONES (370px and smaller)
-   Shrinks header and navigation text to fit narrow screens.
-   ============================================================ */
-  /* Applies only when the viewport matches: @media (max-width: 370px). */
 @media (max-width: 370px) {
-  /* Further reduces navigation link text on very narrow screens. */
+  
   .primary-nav a {
     font-size: .72rem;
   }
 
-  /* Further reduces the municipal name text to avoid crowding. */
   .brand-text strong {
     font-size: .67rem;
   }

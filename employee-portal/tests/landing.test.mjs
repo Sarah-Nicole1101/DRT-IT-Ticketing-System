@@ -1,3 +1,6 @@
+import { installTemplateFetch } from './helpers/template-fetch.mjs';
+installTemplateFetch();
+
 
 // Import Node.js testing tools.
 import assert from 'node:assert/strict';
@@ -7,8 +10,8 @@ import test from 'node:test';
 import { mountLanding, renderLanding } from '../public/js/pages/landing.js';
 
 // Test the landing page content and PIN visibility controls.
-test('landing shows municipal notice without displaying the designated PIN', () => {
-  const html = renderLanding();
+test('landing shows municipal notice without displaying the designated PIN', async () => {
+  const html = await renderLanding();
 
   // Verify the municipal landing page elements.
   assert.match(html, /FOR MUNICIPAL OF DRT USE ONLY/);

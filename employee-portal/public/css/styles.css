@@ -1,4 +1,6 @@
+/* Shared styles first, followed by independent page styles. */
 @import url('./base.css');
-@import url('./submit.css');
-@import url('./track.css');
 @import url('./landing.css');
+@import url('./submit.css');
+@import url('./success.css');
+@import url('./track.css');

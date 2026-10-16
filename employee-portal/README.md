@@ -1,22 +1,14 @@
-# DRT Employee Portal — Frontend Prototype
+# Employee Portal (frontend prototype)
 
-Start locally:
+Run from this folder with `npm run dev`. Open `http://localhost:5173`. Test with `npm test`.
 
-```bash
-npm run dev
-```
+- HTML structure: `public/pages/*.html`
+- Landing PIN UI behavior: `public/js/pages/landing.js`; demo logic in `public/js/services/access-service.js`
+- Ticket submission: `public/js/pages/submit.js`
+- Confirmation / Copy ID: `public/js/pages/success.js`
+- Track/search/dialog: `public/js/pages/track.js`
+- Browser IndexedDB: `public/js/data/ticket-store.js`
+- Styling: `public/css/{base,landing,submit,success,track}.css`
+- Router: `public/js/app.js` (fetches HTML templates asynchronously)
 
-Open http://localhost:5173. Run `npm test` for automated checks.
-
-## Pages and modules
-
-- `/` (also `/submit`) — concern submission form as the landing page (required description, name, office, image).
-- `/submit/success` — shows the new Ticket ID, office, Pending status, and navigation links.
-- `/track` — exact ID search OR office dropdown search, newest/oldest sort, ticket progress dialog.
-- `public/js/data/ticket-store.js` — IndexedDB prototype storage. Handles ticket reference and migration from older demo tickets.
-
-**Important:** Only the submitting browser stores the sample tickets. There is no database/backend connection yet, and the public results are unsuitable for real confidential municipal data until privacy requirements are resolved.
-
-## Tech stack
-
-HTML5 + CSS3 + Vanilla JavaScript, with planned Node.js + Express.js backend and MySQL database. IT Admin is an independent frontend application, not part of this portal.
+**Demo limitations:** The PIN is not protected, and IndexedDB is not shared between devices or administrators. Do not store actual sensitive municipal data. See `docs/MAINTENANCE.md`.
